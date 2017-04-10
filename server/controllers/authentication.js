@@ -28,7 +28,7 @@ exports.signup = (req,res,next) => {
       user.save((error)=>{
           if(error) {return next(error);}
           //Respond to equest indicating the user was created
-          res.json(user);
+          res.json({success: true});
       });
 
    });
