@@ -11,7 +11,10 @@ const app = express();
 
 // App setup
 
-
+// Is middleware in express. Any incoming request is gonna pass into morgan and bodyParser by Default
+app.use(morgan('combined')); // morgan is a Logging framework, So you can log all your movements
+app.use(bodyParser.json({type: '*/*'})); // Another Middleware that is used to parse incoming requests. Is gonna parser
+// into json
 
 // Server Setup
 
