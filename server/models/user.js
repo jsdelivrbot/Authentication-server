@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 // Is the schema that we will define
 const Schema = mongoose.Schema;
 
