@@ -5,6 +5,8 @@ const express = require('express'); // Equivalent to import
 const http = require('http');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const router = require('./router');
+
 // Creating an express project
 const app = express();
 
@@ -15,7 +17,7 @@ const app = express();
 app.use(morgan('combined')); // morgan is a Logging framework, So you can log all your movements
 app.use(bodyParser.json({type: '*/*'})); // Another Middleware that is used to parse incoming requests. Is gonna parser
 // into json
-
+router(app);
 // Server Setup
 
 const port = process.env.PORT || 3090;
