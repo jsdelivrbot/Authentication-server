@@ -12,16 +12,15 @@ const userSchema = new Schema({
 
 // On Save Hook, encrypt password
 // Before saving a model, run this function
-userSchema.pre('save', (next)=>{
+userSchema.pre('save', function(next){
   // get access to the user model
   const user = this;
-
   // Generate a salt, then run a callback
-  bcrypt.genSalt(10, (err,salt)=>{
+  bcrypt.genSalt(10, function(err,salt){
     if(err) {return next(err);}
 
     // Hash our password using the salt
-    bcrypt.hash(user.password, salt, null, (err,hash)=>{
+    bcrypt.hash(user.password, salt, null, function(err,hash){
       if(err) {return next(err);}
 
       // Just overwrite plaun text password with encrypted password
