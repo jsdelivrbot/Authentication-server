@@ -6,17 +6,22 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 const LocalStrategy = require('passport-local');
 // Create local strategy
 const localOptions = {usernameField: 'email'};
-const localLogin = new LocalStrategy(localOptions, (email,password,done)=>{
+
+const localLogin = new LocalStrategy(localOptions, function(email,password,done){
+
     // Verify this username and password , call done with the user if
     // it's the correct username and password
     // otherwise, call it false
-    User.findOne({email: email},(err,user)=>{
+
+    User.findOne({ email: email.toLowerCase() },function(err,user) {
       if (err) {return done(err);}
-      if (!user) {return done(false);}
+      if (!user) { return done(false); }
+
       // compare passwords - is 'password'equal to user.password?
-      user.comparePassword(password,(err,isMatch)=>{
+      user.comparePassword(password,function(err,isMatch){
         if(err){return done(err);}
         if(!isMatch){return done(null,false);}
+
         return done(null,user);
       });
     });

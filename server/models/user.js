@@ -36,6 +36,7 @@ userSchema.pre('save', function(next){
 // Whenever we create an object of userr is gonna get access to any of these functions that
 // we specify here. This is the purpose of userSchema.methods
 userSchema.methods.comparePassword = function(candidatePassword,callback){
+
   bcrypt.compare(candidatePassword,this.password, function(err,isMatch){
     if(err){return callback(err);}
 
