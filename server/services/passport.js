@@ -10,6 +10,11 @@ const localLogin = new LocalStrategy(localOptions, (email,password,done)=>{
     // Verify this username and password , call done with the user if
     // it's the correct username and password
     // otherwise, call it false
+    User.findOne({email: email},(err,user)=>{
+      if (err) {return done(err);}
+      if (!user) {return done(false);}
+      // compare passwords - is 'password'equal to user.password?
+    });
 });
 // The purpose of passport is to hit if we are logged or not
 // Setup options for JWT Strategy
