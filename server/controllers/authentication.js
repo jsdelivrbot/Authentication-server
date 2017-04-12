@@ -10,7 +10,12 @@ function tokenForUser(user){
   const timestamp = new Date().getTime();
   return jwt.encode({sub: user.id, iat: timestamp },config.secret);
 }
+exports.signin = (req,res,next)=>{
+    // We have acces to the user thanks to the passport that we sent the user
+     console.log("req.user");
+     res.send({token: tokenForUser(req.user)});
 
+}
 exports.signup = (req,res,next) => {
    // Everything it contains on the request
    const email = req.body.email;
@@ -46,8 +51,5 @@ exports.signup = (req,res,next) => {
       });
 
    });
-
-
-
   // Respond to request
 }
