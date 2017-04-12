@@ -3,6 +3,7 @@ const User = require('../models/user');
 const config = require('../config');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
+
 // The purpose of passport is to hit if we are logged or not
 
 

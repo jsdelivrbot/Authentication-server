@@ -46,8 +46,5 @@ exports.signup = (req,res,next) => {
       });
 
    });
-
-
-
   // Respond to request
 }
