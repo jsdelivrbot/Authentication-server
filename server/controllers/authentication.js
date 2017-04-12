@@ -1,8 +1,22 @@
 const User = require ('../models/user');
+const jwt = require ('jwt-simple');
+const config  = require ("../config");
+
+
+function tokenForUser(user){
+  // sub property -> is the shortcut for subject: who this is token belongs to?
+  // so the subject to belongs is the id of one specific user
+  // IAT -> Issued at time
+  const timestamp = new Date().getTime();
+  return jwt.encode({sub: user.id, iat: timestamp },config.secret);
+}
+exports.signin = (req,res,next)=>{
+    // We have acces to the user thanks to the passport that we sent the user
+     console.log("req.user");
+     res.send({token: tokenForUser(req.user)});
+
+}
 exports.signup = (req,res,next) => {
-
-  //res.send({success: 'true'});
-
    // Everything it contains on the request
    const email = req.body.email;
    const password = req.body.password;
@@ -33,12 +47,9 @@ exports.signup = (req,res,next) => {
       user.save((error)=>{
           if(error) {return next(error);}
           //Respond to equest indicating the user was created
-          res.json({success: true});
+          res.json({token: tokenForUser(user)});
       });
 
    });
-
-
-
   // Respond to request
 }
