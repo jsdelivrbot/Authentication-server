@@ -14,6 +14,11 @@ const localLogin = new LocalStrategy(localOptions, (email,password,done)=>{
       if (err) {return done(err);}
       if (!user) {return done(false);}
       // compare passwords - is 'password'equal to user.password?
+      user.comparePassword(password,(err,isMatch)=>{
+        if(err){return done(err);}
+        if(!isMatch){return done(null,false);}
+        return done(null,user);
+      });
     });
 });
 // The purpose of passport is to hit if we are logged or not
@@ -45,3 +50,4 @@ const jwtLogin = new JwtStrategy(jwtOptions, (payload,done)=>{
 // Tell passport to use this strategy
 
 passport.use(jwtLogin);
+passport.use(localLogin);

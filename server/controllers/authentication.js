@@ -10,7 +10,9 @@ function tokenForUser(user){
   const timestamp = new Date().getTime();
   return jwt.encode({sub: user.id, iat: timestamp },config.secret);
 }
+exports.signin = (req,res,next)=>{
 
+}
 exports.signup = (req,res,next) => {
    // Everything it contains on the request
    const email = req.body.email;
