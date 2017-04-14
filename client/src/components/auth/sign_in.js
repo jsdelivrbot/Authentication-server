@@ -9,7 +9,8 @@ const FIELDS = {
 
 class SignIn extends Component{
   handleFormSubmit({email,password}){
-      console.log(email);
+
+      this.props.signinUser({email,password});
   }
 
   render(){
