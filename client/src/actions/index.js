@@ -1,7 +1,9 @@
 
 
 export function signinUser({email,password}){
+    return function(dispatch){
 
+    }
     // if request is good...
     // -Update state to indicate user is auth
     // save the JWT token
