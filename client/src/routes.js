@@ -7,6 +7,6 @@ import Signout from './components/auth/sign_out';
 export default(
   <Route path="/" component={App}>
       <Route path="signin" component={SignIn}></Route>
-      <Route path="signout" cimponent={Signout}></Route>
+      <Route path="signout" component={Signout}></Route>
   </Route>
 );
