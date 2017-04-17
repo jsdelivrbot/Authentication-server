@@ -12,6 +12,7 @@ class Signup extends Component{
         <fieldset className="form-group">
           <label htmlFor="email">Email:</label>
           <input  className="form-control" {...email}/>
+          {email.touched && email.error && <div className="error">{email.error}</div>}
         </fieldset>
 
         <fieldset className="form-group">
@@ -39,7 +40,9 @@ function validate(formProps){
   if(formProps.password != formProps.passwordConfirm){
     errors.password = "Password must match";
   }
-
+  if(!formProps.email){
+    errors.email = "Email must be supplied";
+  }
   return errors;
 }
 
