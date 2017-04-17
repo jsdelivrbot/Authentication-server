@@ -10,6 +10,17 @@ class Signup extends Component{
       // handleSubmit helper is intelling and if it contains any error it won't be submitted
       this.props.signupUser(formProps);
   }
+  renderAlert(){
+
+    if (this.props.errorMessage){
+     console.log(this.props.errorMessage);
+      return(
+        <div className="alert alert-danger">
+          <strong>Oops!</strong>{this.props.errorMessage}
+        </div>
+       );
+    }
+  }
   render(){
     const { handleSubmit ,fields: {email,password,passwordConfirm}} = this.props;
     return(
@@ -35,6 +46,7 @@ class Signup extends Component{
           <input type="password" className="form-control" {...passwordConfirm}/>
           {passwordConfirm.touched && passwordConfirm.error && <div className="error">{passwordConfirm.error}</div>}
         </fieldset>
+        {this.renderAlert()}
         <button type="submit" className="btn btn-primary">Sign up!</button>
       </form>
     );
@@ -60,8 +72,12 @@ function validate(formProps){
   return errors;
 }
 
+function mapStateToProps(state){
+  return {errorMessage: state.auth.error};
+}
+
 export default reduxForm({
   form: 'signup',
   fields: ['email','password','passwordConfirm'],
   validate
-},null,actions)(Signup);
+},mapStateToProps,actions)(Signup);

@@ -48,7 +48,16 @@ export function signoutUser(){
 
 export function signupUser({email,password}){
   return function(dispatch){
-    axios.post(`${ROOT_URL}/signup`, {email,password});
+    axios.post(`${ROOT_URL}/signup`, {email,password})
+      .then(res=>{
+        dispatch({type: AUTH_USER});
+        localStorage.setItem('token',res.data.token);
+        browserHistory.push("/feature");
+      })
+      .catch(res =>{
+        //IMPORTANT THE RESPONSE POINTING, AXIOS JUNE 2016
+        dispatch(authError(res.response.data.error))
+      });
 
   }
 
