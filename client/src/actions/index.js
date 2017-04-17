@@ -12,8 +12,14 @@ export function signinUser({email,password}){
         .then(res=>{
         // if request is good...
         // -Update state to indicate user is auth
-          dispatch({type: AUTH_USER})
+
+          dispatch({type: AUTH_USER});
         // save the JWT token
+        // localStorage is like the updrage of the cookies. Isthe same behaviour
+
+         localStorage.setItem('token', res.data.token);
+
+
         // redirect to the route '/feature' -> Thanks to the browserHistory
           browserHistory.push('/feature');
         })
