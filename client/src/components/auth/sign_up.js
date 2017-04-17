@@ -28,6 +28,7 @@ class Signup extends Component{
         <fieldset className="form-group">
           <label htmlFor="">Confirm Password:</label>
           <input type="password" className="form-control" {...passwordConfirm}/>
+          {passwordConfirm.touched && passwordConfirm.error && <div className="error">{passwordConfirm.error}</div>}
         </fieldset>
         <button type="submit" className="btn btn-primary">Sign up!</button>
       </form>
@@ -37,11 +38,19 @@ class Signup extends Component{
 
 function validate(formProps){
   const errors={};
+  const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   if(formProps.password != formProps.passwordConfirm){
     errors.password = "Password must match";
   }
-  if(!formProps.email){
-    errors.email = "Email must be supplied";
+
+  if(!formProps.email || !regexEmail.test(formProps.email)){
+    errors.email = "Please insert a valid email";
+  }
+  if(!formProps.password){
+    errors.password = "Please insert a password";
+  }
+  if(!formProps.passwordConfirm){
+    errors.passwordConfirm = "Please insert again the password";
   }
   return errors;
 }
