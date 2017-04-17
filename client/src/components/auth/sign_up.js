@@ -17,6 +17,11 @@ class Signup extends Component{
         <fieldset className="form-group">
           <label htmlFor="">Password:</label>
           <input type="password" className="form-control" {...password}/>
+          {
+          // What is saying is: if touched evalute to true && error evaluate to true and
+          // last statement evaluates to true, then return the last evaluation
+          }
+          {password.touched && password.error && <div className="error">{password.error}</div>}
         </fieldset>
 
         <fieldset className="form-group">
@@ -29,7 +34,17 @@ class Signup extends Component{
   }
 }
 
+function validate(formProps){
+  const errors={};
+  if(formProps.password != formProps.passwordConfirm){
+    errors.password = "Password must match";
+  }
+
+  return errors;
+}
+
 export default reduxForm({
   form: 'signup',
-  fields: ['email','password','passwordConfirm']
+  fields: ['email','password','passwordConfirm'],
+  validate
 })(Signup);
