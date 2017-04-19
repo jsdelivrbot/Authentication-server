@@ -1,4 +1,4 @@
-import {SIGN_UP,AUTH_ERROR,AUTH_USER,UNAUTH_USER} from './types';
+import {FETCH_MESSAGE,SIGN_UP,AUTH_ERROR,AUTH_USER,UNAUTH_USER} from './types';
 import axios from 'axios';
 import {browserHistory} from 'react-router';
 const ROOT_URL = 'http://localhost:3090';
@@ -68,7 +68,10 @@ export function fetchMessage(){
         headers: {authorization: localStorage.getItem('token')}
       })
         .then(res=>{
-          console.log(res);
+            dispatch({
+              type: FETCH_MESSAGE,
+              payload: res.data.message
+            });
         });
   }
 }
